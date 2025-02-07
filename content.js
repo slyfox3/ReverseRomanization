@@ -27,6 +27,7 @@ function replaceAll(searchRegex, replaceText) {
 
 const regexMapping = buildRegex();
 function workImpl() {
+  console.log("BUSY");
   console.time("workImpl"); //start timer
   for (const [key, value] of regexMapping) {
     replaceAll(key, value);
@@ -36,7 +37,6 @@ function workImpl() {
 
 function delayedWork(delay_sec) {
   setTimeout(() => {
-    console.log("After sleep");
     workImpl();
   }, delay_sec * 1000);
 }
@@ -50,6 +50,49 @@ function replaceTargetText(event, searchText, replaceText) {
         event.target.childNodes[0].nodeValue.replace(find, replaceText);
     }
   }
+}
+
+function enableMutationObserver() {
+  tLastMutation = Date.now(); // reset
+  const callback = (mutationList, observer) => {
+    console.log(
+      ` Delta t = ${Date.now() - tLastMutation} Number of mutations: ${
+        mutationList.length
+      }`
+    );
+
+    elapsed = Date.now() - tLastMutation;
+    tLastMutation = Date.now();
+
+    // empirically, these small mutations don't change useful content
+    // there's a bunch of mutations of these sizes  when scrolling around
+    if (
+      mutationList.length <= 14 ||
+      mutationList.length == 16 ||
+      mutationList.length == 20
+    ) {
+      return;
+    }
+
+    // something over the network happened
+    // also let some tiny data that's following slip in
+    if (elapsed > 75) {
+      console.log("Triggering delayed work");
+      delayedWork(0.2);
+    }
+  };
+
+  const config = {
+    attributes: true,
+    childList: true,
+    subtree: true,
+    characterData: false,
+    attributeOldValue: false,
+    characterDataOldValue: false,
+  };
+
+  let observer = new MutationObserver(callback);
+  observer.observe(document, config);
 }
 
 chrome.storage.sync.get(["mode"], (result) => {
@@ -69,15 +112,6 @@ chrome.storage.sync.get(["mode"], (result) => {
       break;
     case "auto":
     default:
-      document.addEventListener("mouseup", function (event) {
-        console.log("clicked!");
-        delayedWork(0);
-      });
-
-      window.addEventListener("load", function (event) {
-        console.log("Page fully loaded!");
-        delayedWork(2);
-      });
-      break;
+      enableMutationObserver();
   }
 });
