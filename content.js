@@ -58,6 +58,7 @@ const stringMapping = {
   "LIN Tsung Han": "林宗翰",
   "LIU Cheng Hsiung": "劉正雄",
   "LIU Chien Hung": "劉建弘",
+  "Toh Lian Han": "卓連漢",
   "LIU Chun Chuan": "劉峻銓",
   "LIU Ri Teng": "劉日騰",
   "LIU Shin Mei": "柳信美",
