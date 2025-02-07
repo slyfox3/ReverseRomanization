@@ -1,16 +1,16 @@
 {
-    "manifest_version": 3,
-    "name": "Reverse Romanization of Names",
-    "version": "0.1",
-    "description": "Show names in the text of original language.",
-    "content_scripts": [
-        {
-            "matches": [
-                "https://digitalpool.com/*"
-            ],
-            "js": [
-                "content.js"
-            ]
-        }
-    ]
+  "manifest_version": 3,
+  "name": "Reverse Romanization of Names",
+  "version": "1.0",
+  "description": "Show names in the text of original language.",
+  "content_scripts": [
+    {
+      "matches": ["https://digitalpool.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage"]
 }
