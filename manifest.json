@@ -6,7 +6,10 @@
   "content_scripts": [
     {
       "matches": ["https://digitalpool.com/*"],
-      "js": ["content.js"]
+      "js": [
+        "name_mapping.js",
+        "content.js"
+      ]
     }
   ],
   "action": {
