@@ -63,7 +63,7 @@ const stringMapping = {
   "LIU Shin Mei": "柳信美",
   "LIU Yun Cheng": "劉運程",
   "LU Hui Chan": "呂輝展",
-  "SHAO CHIANG": "劉少強 LIU",
+  "LIU SHAO CHIANG": "劉少強",
   "SHAO Yu Hsin": "邵育鑫",
   "SUN Yi Hsuan": "孫翌軒",
   "TAI Chi Hsiang": "戴啟祥",
