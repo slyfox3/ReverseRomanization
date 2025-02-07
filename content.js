@@ -1,4 +1,12 @@
-function replaceAll(searchText, replaceText) {
+function buildRegex() {
+  const ret = new Map();
+  for (const [key, value] of Object.entries(stringMapping)) {
+    ret.set(new RegExp(key, "i"), value);
+  }
+  return ret;
+}
+
+function replaceAll(searchRegex, replaceText) {
   const treeWalker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
@@ -7,14 +15,14 @@ function replaceAll(searchText, replaceText) {
   );
 
   let node;
-  let find = new RegExp(searchText, "i");
   while ((node = treeWalker.nextNode())) {
-    node.nodeValue = node.nodeValue.replace(find, replaceText);
+    node.nodeValue = node.nodeValue.replace(searchRegex, replaceText);
   }
 }
 
+const regexMapping = buildRegex();
 function workImpl() {
-  for (const [key, value] of Object.entries(stringMapping)) {
+  for (const [key, value] of regexMapping) {
     replaceAll(key, value);
   }
 }
