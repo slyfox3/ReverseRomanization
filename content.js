@@ -8,6 +8,16 @@ function buildRegex() {
   return ret;
 }
 
+function maybeReplace(regexMapping, field) {
+  const old = field;
+  for (const [regex, replacement] of regexMapping) {
+    if (regex.test(field)) {
+      return [old, replacement];
+    }
+  }
+  return [null, null];
+}
+
 function replaceAll(regexMapping) {
   const treeWalker = document.createTreeWalker(
     document.body,
@@ -23,8 +33,9 @@ function replaceAll(regexMapping) {
       // this reduces compute by almost 50%
       continue;
     }
-    for (const [key, value] of regexMapping) {
-      node.nodeValue = node.nodeValue.replace(searchRegex, replaceText);
+    [old, repl] = maybeReplace(regexMapping, node.nodeValue);
+    if (old) {
+      node.nodeValue = node.nodeValue.replace(old, repl);
     }
   }
 }
