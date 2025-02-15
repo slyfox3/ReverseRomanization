@@ -1,12 +1,14 @@
 function buildRegex() {
-  const ret = new Map();
+  const ret = new Array(stringMapping.length);
+  let i = 0;
   for (const [key, value] of Object.entries(stringMapping)) {
-    ret.set(new RegExp(key, "i"), value);
+    ret[i] = [new RegExp(key, "i"), value];
+    i++;
   }
   return ret;
 }
 
-function replaceAll(searchRegex, replaceText) {
+function replaceAll(regexMapping) {
   const treeWalker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
@@ -21,7 +23,9 @@ function replaceAll(searchRegex, replaceText) {
       // this reduces compute by almost 50%
       continue;
     }
-    node.nodeValue = node.nodeValue.replace(searchRegex, replaceText);
+    for (const [key, value] of regexMapping) {
+      node.nodeValue = node.nodeValue.replace(searchRegex, replaceText);
+    }
   }
 }
 
@@ -29,9 +33,7 @@ const regexMapping = buildRegex();
 function workImpl() {
   console.log("BUSY");
   console.time("workImpl"); //start timer
-  for (const [key, value] of regexMapping) {
-    replaceAll(key, value);
-  }
+  replaceAll(regexMapping);
   console.timeEnd("workImpl"); // stop!
 }
 
