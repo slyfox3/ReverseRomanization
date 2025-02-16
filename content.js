@@ -78,15 +78,26 @@ function delayedWork(delay_sec) {
 
 function replaceHover(event, regexMapping) {
   if (event.target != null && event.target.childNodes.length > 0) {
-    if (event.target.childNodes[0].nodeValue) {
+    let validIdx = 0;
+    for (; validIdx < event.target.childNodes.length; validIdx++) {
+      if (event.target.childNodes[validIdx].nodeValue) {
+        break;
+      }
+    }
+
+    if (
+      validIdx < event.target.childNodes.length &&
+      event.target.childNodes[validIdx].nodeValue
+    ) {
       const isHover = true;
       [regex, repl] = maybeReplace(
         regexMapping,
-        event.target.childNodes[0].nodeValue,
+        event.target.childNodes[validIdx].nodeValue,
         isHover
       );
-      event.target.childNodes[0].nodeValue =
-        event.target.childNodes[0].nodeValue.replace(regex, repl);
+      event.target.childNodes[validIdx].nodeValue = event.target.childNodes[
+        validIdx
+      ].nodeValue.replace(regex, repl);
     }
   }
 }
