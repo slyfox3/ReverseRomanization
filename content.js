@@ -8,17 +8,39 @@ function buildRegex() {
   return ret;
 }
 
-function maybeReplace(regexMapping, field) {
+// This is the core of the find-replace logic.
+// The function take a field to search text in, iterates over all the
+// reomanized name patterns, and returns the first match.
+// The caller is responsible to carry out the acutal replace action.
+// Note: if hover mode is on, we do the same thing to check all patterns
+// when mouse "enters" a field. If the field contains a romanized name,
+// the code "memorizes" that romanized name in the global variable, which
+// will be used to be "reverted back" when the mouse focus leaves that field.
+// Also, when the global variables are set, we don't check other patterns at all.
+let hoverTempOriginal = null;
+let hoverTempReplaced = null;
+function maybeReplace(regexMapping, field, isHover = false) {
   const old = field;
+  if (isHover && hoverTempReplaced) {
+    let ret = [hoverTempReplaced, hoverTempOriginal];
+    hoverTempReplaced = null;
+    hoverTempOriginal = null;
+    return ret;
+  }
+
   for (const [regex, replacement] of regexMapping) {
     if (regex.test(field)) {
-      return [old, replacement];
+      if (isHover) {
+        hoverTempOriginal = regex.source;
+        hoverTempReplaced = replacement;
+      }
+      return [regex, replacement];
     }
   }
   return [null, null];
 }
 
-function replaceAll(regexMapping) {
+function replaceEntireTree(regexMapping) {
   const treeWalker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
@@ -33,9 +55,9 @@ function replaceAll(regexMapping) {
       // this reduces compute by almost 50%
       continue;
     }
-    [old, repl] = maybeReplace(regexMapping, node.nodeValue);
-    if (old) {
-      node.nodeValue = node.nodeValue.replace(old, repl);
+    [regex, repl] = maybeReplace(regexMapping, node.nodeValue);
+    if (regex) {
+      node.nodeValue = node.nodeValue.replace(regex, repl);
     }
   }
 }
@@ -44,7 +66,7 @@ const regexMapping = buildRegex();
 function workImpl() {
   console.log("BUSY");
   console.time("workImpl"); //start timer
-  replaceAll(regexMapping);
+  replaceEntireTree(regexMapping);
   console.timeEnd("workImpl"); // stop!
 }
 
@@ -54,13 +76,17 @@ function delayedWork(delay_sec) {
   }, delay_sec * 1000);
 }
 
-function replaceTargetText(event, searchText, replaceText) {
+function replaceHover(event, regexMapping) {
   if (event.target != null && event.target.childNodes.length > 0) {
-    let nodeText = event.target.childNodes[0].nodeValue;
-    if (nodeText != null && nodeText.includes(searchText)) {
-      let find = new RegExp(searchText, "i");
+    if (event.target.childNodes[0].nodeValue) {
+      const isHover = true;
+      [regex, repl] = maybeReplace(
+        regexMapping,
+        event.target.childNodes[0].nodeValue,
+        isHover
+      );
       event.target.childNodes[0].nodeValue =
-        event.target.childNodes[0].nodeValue.replace(find, replaceText);
+        event.target.childNodes[0].nodeValue.replace(regex, repl);
     }
   }
 }
@@ -112,15 +138,11 @@ chrome.storage.sync.get(["mode"], (result) => {
   switch (result.mode) {
     case "hover":
       document.addEventListener("mouseover", (e) => {
-        for (const [origName, transName] of Object.entries(stringMapping)) {
-          replaceTargetText(e, origName, transName);
-        }
+        replaceHover(e, regexMapping);
       });
 
       document.addEventListener("mouseout", (e) => {
-        for (const [origName, transName] of Object.entries(stringMapping)) {
-          replaceTargetText(e, transName, origName);
-        }
+        replaceHover(e, regexMapping);
       });
       break;
     case "auto":
