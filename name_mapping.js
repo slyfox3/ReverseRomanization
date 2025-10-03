@@ -1,7 +1,15 @@
-const stringMapping = {
+// flags on digital pool, search for
+// Taiwan: static/media/tw-ioc
+// Japan:  jp.svg
+
+// Chao Shih Fan
+// Tu Wei Chieh
+// Hsieh Chia Hsiang
+const twMapping = {
   "CHANG Chih Hsuan": "張芷瑄",
   "CHANG Hsin Yu": "章心宥",
   "CHANG Jung Lin": "張榮麟",
+  "Chang Lichia": "張莉佳",
   "CHANG Ming Hsiung": "張明雄",
   "CHANG Pei Wei": "張裴瑋",
   "CHANG Tzu Chien": "張子謙",
@@ -9,6 +17,7 @@ const stringMapping = {
   "CHANG Yu Lung": "張玉龍",
   "CHANG Yu Yuan": "章又元",
   "CHAO Fong Pang": "趙豐邦",
+  "Chen Chen Wei": "陳臻為",
   "CHEN Chia Hua": "陳佳樺",
   "CHEN Hsin Ting": "陳信廷",
   "CHEN Pin Lin": "陳品霖",
@@ -16,6 +25,7 @@ const stringMapping = {
   "CHENG Shun Yang": "鄭舜陽",
   "CHIANG Shui Ching": "江水淨",
   "CHIEN Bo Chun": "簡伯鈞",
+  "Chien Ching Ju": "簡敬儒",
   "CHIU Chun Yuan": "邱俊元",
   "CHIU Po Han": "邱柏翰",
   "CHIU Wei Yu": "施威宇",
@@ -26,25 +36,28 @@ const stringMapping = {
   "CHUANG Yaw Lin": "莊曜霖",
   "FANG Hsiao Lang": "方小郎",
   "FU Che Wei": "傅哲偉",
+  "Hong xin Yu": "洪欣妤",
   "HSIEH Chia Chen": "謝佳臻",
   "HSIEH Shang Yu": "謝尚諭",
   "HSU Jui An": "許睿安",
   "HSU Shih Wei": "許世瑋",
   "HSUEH Wen Chang": "薛文章",
+  "Huang Bo Song": "黃柏菘",
   "HUANG Wei Lun": "黃唯綸",
   "JIANG Xin Xing": "江信興",
   "KAO shun yang": "高舜暘",
+  "Kazuo FURUTA": "古田和男",
   "KO Pin Yi": "柯秉逸",
   "KO Ping Chung": "柯秉中",
   "KO Ping Han": "柯秉漢",
   "KUO Chun Nan": "郭俊男",
   "KUO Hsuan Wei": "郭玄偉",
   "KUO Po Cheng": "郭柏成",
-  "Kazuo FURUTA": "古田和男",
   "LAI Ming Huan": "賴明煥",
   "LAI Wei Qi": "賴瑋棋",
   "LEE Kun Fang": "李昆芳",
   "LEE Wei Jen": "李維仁",
+  "Li Zih Min": "李自民",
   "LIAO Hung Yen": "廖泓雁",
   "LIAO Ying Kai": "廖英凱",
   "LIEN Chih Wei": "連治瑋",
@@ -58,17 +71,18 @@ const stringMapping = {
   "LIN Tsung Han": "林宗翰",
   "LIU Cheng Hsiung": "劉正雄",
   "LIU Chien Hung": "劉建弘",
-  "Toh Lian Han": "卓連漢",
   "LIU Chun Chuan": "劉峻銓",
   "LIU Ri Teng": "劉日騰",
+  "LIU SHAO CHIANG": "劉少強",
   "LIU Shin Mei": "柳信美",
   "LIU Yun Cheng": "劉運程",
   "LU Hui Chan": "呂輝展",
-  "LIU SHAO CHIANG": "劉少強",
   "SHAO Yu Hsin": "邵育鑫",
   "SUN Yi Hsuan": "孫翌軒",
   "TAI Chi Hsiang": "戴啟祥",
   "TANG Ching Ting": "唐境霆",
+  "Toh Lian Han": "卓連漢",
+  "Tsai Cheng Ta": "蔡承達",
   "TSAI Pei Chun": "蔡佩君",
   "WANG Chi Sheng": "王志聖",
   "WANG Chih Yung": "王智勇",
@@ -82,6 +96,28 @@ const stringMapping = {
   "YE Chun Hung": "葉峻宏",
   "YU Li Si": "余豊熙",
   "ZENG Huan Zhong": "曾煥中",
-  "ZHUANG Zhi Yu": "莊智宇",
   "Zheng Sen": "鄭森",
+  "ZHUANG Zhi Yu": "莊智宇",
 };
+
+// Sakura Muramatsu
+const jpMapping = {
+  "Agata Yasuhiro": "安形泰宏",
+  "Hayato Hijikata": "土方隼斗",
+  "Hideki Yamakawa": "山川英樹",
+  "Hiroshi Takenaka": "竹中寛",
+  "Kenichi Uchigaki": "内垣建一",
+  "Kouki Sugiyama": "杉山功起",
+  "Masato Asano": "浅野正人",
+  "Masato Yoshioka": "吉岡正登",
+  "Naoyuki Oi": "大井直幸",
+  "Norio Ogawa": "小川徳郎",
+  "Ryosuke Maruoka": "丸岡良輔",
+  "Ryota Tashiro": "田代亮太",
+  "Shinnosuke Matukawa": "松川慎之介",
+  "Takahashi Kunihiko": "高橋邦彦",
+  "Takashi Uraoka": "浦岡隆志",
+  "Yukio Akagariyama": "赤狩山幸男",
+};
+
+const stringMapping = { ...twMapping, ...jpMapping };
