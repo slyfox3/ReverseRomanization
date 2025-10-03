@@ -2,9 +2,6 @@
 // Taiwan: static/media/tw-ioc
 // Japan:  jp.svg
 
-// Chao Shih Fan
-// Tu Wei Chieh
-// Hsieh Chia Hsiang
 const twMapping = {
   "CHANG Chih Hsuan": "張芷瑄",
   "CHANG Hsin Yu": "章心宥",
@@ -17,6 +14,7 @@ const twMapping = {
   "CHANG Yu Lung": "張玉龍",
   "CHANG Yu Yuan": "章又元",
   "CHAO Fong Pang": "趙豐邦",
+  "Chao Shih Fan": "趙世璠",
   "Chen Chen Wei": "陳臻為",
   "CHEN Chia Hua": "陳佳樺",
   "CHEN Hsin Ting": "陳信廷",
@@ -38,11 +36,12 @@ const twMapping = {
   "FU Che Wei": "傅哲偉",
   "Hong xin Yu": "洪欣妤",
   "HSIEH Chia Chen": "謝佳臻",
+  "Hsieh Chia Hsiang": "謝佳祥",
   "HSIEH Shang Yu": "謝尚諭",
   "HSU Jui An": "許睿安",
   "HSU Shih Wei": "許世瑋",
   "HSUEH Wen Chang": "薛文章",
-  "Huang Bo Song": "黃柏菘",
+  "Huang Bo Song": "黃勃崧",
   "HUANG Wei Lun": "黃唯綸",
   "JIANG Xin Xing": "江信興",
   "KAO shun yang": "高舜暘",
@@ -81,15 +80,16 @@ const twMapping = {
   "SUN Yi Hsuan": "孫翌軒",
   "TAI Chi Hsiang": "戴啟祥",
   "TANG Ching Ting": "唐境霆",
-  "Toh Lian Han": "卓連漢",
   "Tsai Cheng Ta": "蔡承達",
   "TSAI Pei Chun": "蔡佩君",
+  "Tu Wei Chieh": "杜偉傑",
   "WANG Chi Sheng": "王志聖",
   "WANG Chih Yung": "王智勇",
   "WANG Ching Feng": "王清鋒",
   "WANG Chuan Min": "王權敏",
   "WANG Hung Hsiang": "王泓翔",
   "WU Cheng Lin": "吳政霖",
+  "WU Jia Qing": "吳珈慶",
   "WU Kun Lin": "吳坤霖",
   "YANG Dong Yu": "楊東裕",
   "YANG Gong Hao": "楊恭豪",
@@ -98,6 +98,10 @@ const twMapping = {
   "ZENG Huan Zhong": "曾煥中",
   "Zheng Sen": "鄭森",
   "ZHUANG Zhi Yu": "莊智宇",
+};
+
+const sgMapping = {
+  "Toh Lian Han": "卓連漢",
 };
 
 // Sakura Muramatsu
@@ -120,4 +124,9 @@ const jpMapping = {
   "Yukio Akagariyama": "赤狩山幸男",
 };
 
-const stringMapping = { ...twMapping, ...jpMapping };
+
+const stringMapping = {
+  ...twMapping,
+  ...sgMapping,
+  ...jpMapping,
+};
