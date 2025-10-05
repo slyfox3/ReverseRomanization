@@ -125,11 +125,11 @@ const jpMapping = {
 };
 
 const cnMapping = {
+  "Liu Nuoen": "刘诺恩",
   "Mei Yifei": "梅逸飞",
   "Ruan Yihui": "阮以辉",
-  "Zhu Xihe": "朱熙禾",
   "Wang Can": "王灿",
-  "Liu Nuoen": "刘诺恩",
+  "Zhu Xihe": "朱熙禾",
 };
 
 
