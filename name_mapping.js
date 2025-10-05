@@ -104,7 +104,7 @@ const sgMapping = {
   "Toh Lian Han": "卓連漢",
 };
 
-// Sakura Muramatsu
+// source: https://jpba.ne.jp/
 const jpMapping = {
   "Agata Yasuhiro": "安形泰宏",
   "Hayato Hijikata": "土方隼斗",
@@ -124,9 +124,18 @@ const jpMapping = {
   "Yukio Akagariyama": "赤狩山幸男",
 };
 
+const cnMapping = {
+  "Mei Yifei": "梅逸飞",
+  "Ruan Yihui": "阮以辉",
+  "Zhu Xihe": "朱熙禾",
+  "Wang Can": "王灿",
+  "Liu Nuoen": "刘诺恩",
+};
+
 
 const stringMapping = {
   ...twMapping,
   ...sgMapping,
   ...jpMapping,
+  ...cnMapping,
 };
